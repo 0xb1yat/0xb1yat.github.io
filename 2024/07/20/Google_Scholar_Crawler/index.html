@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="b1yat">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+        
+        
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://Iamb1yat.github.io/2024/07/20/google_scholar_crawler/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Welcome to my sekai">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从0到1：构建智能化Google Scholar文献爬虫的心路历程">
+<meta property="og:url" content="http://iamb1yat.github.io/2024/07/20/Google_Scholar_Crawler/index.html">
+<meta property="og:site_name" content="B1yat&#39;s Blog">
+<meta property="og:description" content="Welcome to my sekai">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://iamb1yat.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2024-07-20T08:00:00.000Z">
+<meta property="article:modified_time" content="2025-02-24T13:33:10.063Z">
+<meta property="article:author" content="b1yat">
+<meta property="article:tag" content="爬虫实战">
+<meta property="article:tag" content="科研工具">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://iamb1yat.github.io/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.png">
+    <meta name="theme-color" content="#6B8DFF">
+    <link rel="shortcut icon" href="/images/redefine-favicon.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            从0到1：构建智能化Google Scholar文献爬虫的心路历程 | B1yat&#39;s Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fonts/Chillax/chillax.css">
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/css/build/tailwind.css">
+    
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fonts/GeistMono/geist-mono.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fonts/Geist/geist.css">
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+        <link href="" rel="stylesheet">
+    
+    
+        <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/anime.min.js" ></script>
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"iamb1yat.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.8,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":false,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["生まれてよかった..."]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa","author":true,"link":true,"license":"CC BY-NC-SA 4.0","license_link":"https://creativecommons.org/licenses/by-nc-sa/4.0/"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#6B8DFF","secondary":"#8A9FFF","default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":true,"family":"'Noto Sans SC', 'Helvetica Neue', Helvetica, Arial, sans-serif","url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":true,"custom_message":"B1yat's Blog"},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Welcome to my sekai"},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6.png","dark":"/images/wallhaven-wqery6.png"},"title":"Welcome to my sekai","subtitle":{"text":["風をまとい、光を追う✨","無垢なる浪漫..(ˊᗜˋ)/♡"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#2c3e50","dark":"#2c3e50"},"text_style":{"title_size":"3.5rem","subtitle_size":"1.5rem","line_height":2,"text_shadow":false,"font_weight":600},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/Iamb1yat","instagram":null,"zhihu":null,"twitter":null,"email":"mailto:b1yat@icloud.com","bilibili":"https://space.bilibili.com/364646464"},"qrs":{"weixin":"/images/about/wechat-qr.png","qq":"/images/about/qq-qr.png"},"position":"right","layout":"horizontal","mobile":true}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"9.3.0"},"katex":{"enable":false},"mathjax":{"enable":true,"version":"latest"},"typed":{"enable":true,"version":"2.0.12"},"pangu":{"enable":true,"version":"4.0.7"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"rgba(255, 255, 255, 0.9)","right":"rgba(255, 255, 255, 0.9)","transparency":10},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"文章":{"path":"/archives","icon":"fa-regular fa-archive"},"标签":{"path":"/tags","icon":"fa-regular fa-tags"},"分类":{"path":"/categories","icon":"fa-regular fa-folder"},"Links":{"icon":"fa-regular fa-star","submenus":{"资源分享":"/resources","工具推荐":"/tools"}},"关于":{"path":"/about","icon":"fa-regular fa-user"}},"search":{"enable":true,"preload":true},"blur":false,"style":{"text_color":"#2c3e50","text_weight":600}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2024/02/10 00:00:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        B1yat&#39;s Blog
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                B1yat&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    文章
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags"
+                                        >
+                                    <i class="fa-regular fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-regular fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-star fa-fw"></i>
+                                    链接
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/resources">
+                                                    资源分享
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/tools">
+                                                    工具推荐
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/about"
+                                        >
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    关于
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                文章
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                链接
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/resources">资源分享</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/tools">工具推荐</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/about"
+                        >
+                            <span>
+                                关于
+                            </span>
+                            
+                                <i class="fa-regular fa-user fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">从0到1：构建智能化Google Scholar文献爬虫的心路历程</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/redefine-avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">b1yat</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">生まれてよかった...</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-07-20 16:00</span>
+        <span class="mobile">2024-07-20 16:00</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-02-24 21:33:10</span>
+            <span class="mobile">2025-02-24 21:33:10</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E6%8A%80%E6%9C%AF%E9%9A%8F%E7%AC%94/">技术随笔</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98/">爬虫实战</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E7%A7%91%E7%A0%94%E5%B7%A5%E5%85%B7/">科研工具</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h2 id="缘起">缘起</h2>
+<p>Google
+Scholar（谷歌学术）作为全球最大的学术搜索引擎之一，已经成为科研工作者不可或缺的文献检索工具。它不仅收录了海量的学术文献，更重要的是构建了完整的文献引用关系网络，这对于理解研究脉络、追踪学术前沿具有重要意义。</p>
+<p>在学术研究中，我们经常需要： 1. 追踪某个研究领域的发展历程 2.
+分析高影响力论文的引用关系 3. 了解某位学者的研究方向和成果 4.
+发现研究热点和创新点</p>
+<p>然而，手动在Google
+Scholar上检索和整理这些信息是一项耗时的工作。特别是当需要分析大量论文的引用关系时，人工操作不仅效率低下，还容易出错。这促使我思考：能否开发一个自动化工具，来高效完成这些任务？</p>
+<p>于是，这个Google
+Scholar爬虫项目应运而生。这个工具旨在自动化文献信息的采集和整理过程，帮助研究者更专注于学术内容本身的分析和创新。</p>
+<h2 id="核心技术实现">核心技术实现</h2>
+<h3 id="系统架构设计">1. 系统架构设计</h3>
+<p>在开发这个爬虫之前，我们需要解决几个关键问题： -
+如何模拟真实用户的浏览行为？ - 如何处理Google Scholar的反爬机制？ -
+如何高效地存储和组织数据？</p>
+<p>基于这些考虑，我们设计了以下系统架构：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Gather</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        <span class="comment"># 初始化Chrome浏览器选项</span></span><br><span class="line">        option = Options()</span><br><span class="line">        <span class="comment"># option.add_argument(&#x27;--headless&#x27;)  # 可选：启用无头模式</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 使用webdriver_manager自动管理ChromeDriver</span></span><br><span class="line">        service = Service(ChromeDriverManager().install())</span><br><span class="line">        <span class="variable language_">self</span>.driver = webdriver.Chrome(</span><br><span class="line">            service=service, options=option)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 初始化数据存储</span></span><br><span class="line">        <span class="variable language_">self</span>.Passage_name = []  <span class="comment"># 存储文章名称</span></span><br><span class="line">        <span class="variable language_">self</span>.Cited_by = []     <span class="comment"># 存储被引用次数</span></span><br><span class="line">        <span class="variable language_">self</span>.src = []          <span class="comment"># 存储链接</span></span><br><span class="line">        <span class="variable language_">self</span>.name = <span class="string">&quot;&quot;</span>         <span class="comment"># 存储作者名称</span></span><br></pre></td></tr></table></figure></div>
+<p>这段代码中的每个组件都有其特定用途：</p>
+<ol type="1">
+<li><strong>浏览器自动化（Selenium WebDriver）</strong>
+<ul>
+<li>选择Selenium而不是requests的原因是Google
+Scholar大量使用JavaScript动态加载内容</li>
+<li><code>webdriver_manager</code>自动下载和管理ChromeDriver，避免版本不匹配问题</li>
+<li>支持无头模式（headless），适合在服务器环境运行</li>
+</ul></li>
+<li><strong>数据结构设计</strong>
+<ul>
+<li>使用列表存储文章信息，便于动态增长</li>
+<li>分别存储文章名称、引用次数和链接，保持数据的关联性</li>
+<li>实时更新作者信息，确保数据的完整性</li>
+</ul></li>
+</ol>
+<h3 id="验证码突破方案">2. 验证码突破方案</h3>
+<p>Google
+Scholar使用reCAPTCHA作为反爬虫机制，这是一个难点。经过多次尝试，我们发现了一个巧妙的解决方案：利用reCAPTCHA的音频验证功能。</p>
+<p>整个验证码突破流程如下：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">pass_recaptha</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="comment"># 第一步：定位并切换到验证码iframe</span></span><br><span class="line">    WebDriverWait(<span class="variable language_">self</span>.driver, <span class="number">15</span>, <span class="number">0.5</span>).until(</span><br><span class="line">        EC.visibility_of_element_located((By.XPATH,</span><br><span class="line">                                          <span class="string">&#x27;//*[@id=&quot;gs_captcha_c&quot;]/div/div/iframe&#x27;</span>)))</span><br><span class="line">    <span class="variable language_">self</span>.driver.switch_to.frame(<span class="variable language_">self</span>.driver.find_element(By.XPATH,</span><br><span class="line">                                                         <span class="string">&#x27;//*[@id=&quot;gs_captcha_c&quot;]/div/div/iframe&#x27;</span>))</span><br></pre></td></tr></table></figure></div>
+<p>这里使用了<code>WebDriverWait</code>而不是固定延时，原因是： -
+页面加载速度受网络影响，固定延时不可靠 -
+动态等待可以在元素出现时立即进行下一步 - 超时机制可以及时发现异常</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># 第二步：切换到音频验证模式</span></span><br><span class="line">    <span class="variable language_">self</span>.driver.switch_to.default_content()</span><br><span class="line">    WebDriverWait(<span class="variable language_">self</span>.driver, <span class="number">15</span>, <span class="number">0.5</span>).until(</span><br><span class="line">        EC.visibility_of_element_located((By.XPATH, <span class="string">&#x27;/html/body/div[2]/div[4]/iframe&#x27;</span>)))</span><br><span class="line">    <span class="variable language_">self</span>.driver.switch_to.frame(<span class="variable language_">self</span>.driver.find_element(</span><br><span class="line">        By.XPATH, <span class="string">&#x27;/html/body/div[2]/div[4]/iframe&#x27;</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 第三步：获取音频文件</span></span><br><span class="line">    button = <span class="variable language_">self</span>.driver.find_element(</span><br><span class="line">        By.XPATH, <span class="string">&#x27;//*[@id=&quot;recaptcha-audio-button&quot;]&#x27;</span>)</span><br><span class="line">    button.click()</span><br><span class="line">    msg_url = <span class="variable language_">self</span>.driver.find_element(</span><br><span class="line">        By.XPATH, <span class="string">&#x27;//*[@id=&quot;rc-audio&quot;]/div[7]/a&#x27;</span>).get_attribute(<span class="string">&quot;href&quot;</span>)</span><br></pre></td></tr></table></figure></div>
+<p>音频验证的优势： - 相比图像验证码，音频内容更容易识别 -
+Google对音频验证的限制相对较少 - 可以利用成熟的语音识别API</p>
+<h3 id="音频识别实现">3. 音频识别实现</h3>
+<p>音频识别使用腾讯云的语音识别服务，这个选择基于以下考虑： -
+支持英文音频识别 - API调用简单稳定 - 识别准确率高</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">upload</span>(<span class="params">self, msg_url</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># 步骤1：配置腾讯云认证</span></span><br><span class="line">        cred = credential.Credential(<span class="variable language_">self</span>.SecretId, <span class="variable language_">self</span>.SecretKey)</span><br><span class="line">        httpProfile = HttpProfile()</span><br><span class="line">        httpProfile.endpoint = <span class="string">&quot;asr.tencentcloudapi.com&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 步骤2：创建识别任务</span></span><br><span class="line">        client = asr_client.AsrClient(cred, <span class="string">&quot;&quot;</span>, clientProfile)</span><br><span class="line">        req = models.CreateRecTaskRequest()</span><br><span class="line">        params = &#123;</span><br><span class="line">            <span class="string">&quot;EngineModelType&quot;</span>: <span class="string">&quot;16k_en&quot;</span>,  <span class="comment"># 选择英文识别引擎</span></span><br><span class="line">            <span class="string">&quot;ChannelNum&quot;</span>: <span class="number">1</span>,              <span class="comment"># 单声道音频</span></span><br><span class="line">            <span class="string">&quot;ResTextFormat&quot;</span>: <span class="number">0</span>,           <span class="comment"># 文本格式</span></span><br><span class="line">            <span class="string">&quot;SourceType&quot;</span>: <span class="number">0</span>,              <span class="comment"># URL方式上传</span></span><br><span class="line">            <span class="string">&quot;Url&quot;</span>: msg_url</span><br><span class="line">        &#125;</span><br><span class="line">        req.from_json_string(json.dumps(params))</span><br></pre></td></tr></table></figure></div>
+<p>识别过程的关键点： 1. 选择合适的识别引擎（16k采样率英文模型） 2.
+使用URL方式上传，避免音频文件下载和本地存储 3.
+异步任务处理，避免程序阻塞</p>
+<h3 id="数据采集实现">4. 数据采集实现</h3>
+<p>数据采集分为两个主要步骤：获取文章列表和收集引用信息。这里的难点是如何准确定位和提取所需信息。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">JumpInfo</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="comment"># 步骤1：等待页面加载完成</span></span><br><span class="line">    WebDriverWait(<span class="variable language_">self</span>.driver, <span class="number">3</span>).until(EC.presence_of_element_located(</span><br><span class="line">        (By.XPATH, <span class="string">&#x27;//*[@id=&quot;gsc_a_b&quot;]/tr/td[2]/a&#x27;</span>)))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 步骤2：定位关键元素</span></span><br><span class="line">    Passage_name = <span class="variable language_">self</span>.driver.find_elements(</span><br><span class="line">        By.XPATH, <span class="string">&#x27;//*[@id=&quot;gsc_a_b&quot;]/tr/td[1]/a&#x27;</span>)</span><br><span class="line">    Cited_by = <span class="variable language_">self</span>.driver.find_elements(</span><br><span class="line">        By.XPATH, <span class="string">&#x27;//*[@id=&quot;gsc_a_b&quot;]/tr/td[2]/a&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+<p>XPath定位的优势： - 相比CSS选择器更灵活 - 可以准确定位层级关系 -
+支持复杂的条件筛选</p>
+<p>对于引用信息的收集，我们采用分页处理：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">collectInfo</span>(<span class="params">self, <span class="built_in">id</span></span>):</span><br><span class="line">    base_url = <span class="variable language_">self</span>.src[<span class="built_in">id</span>]</span><br><span class="line">    <span class="keyword">for</span> num <span class="keyword">in</span> <span class="built_in">range</span>(<span class="variable language_">self</span>.page_no):</span><br><span class="line">        <span class="comment"># 构造分页URL</span></span><br><span class="line">        extend = <span class="string">f&#x27;&amp;start=<span class="subst">&#123;num*<span class="number">10</span>&#125;</span>&#x27;</span></span><br><span class="line">        url = base_url+extend</span><br><span class="line">        HTML = <span class="variable language_">self</span>.get_html(url)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 提取引用文章信息</span></span><br><span class="line">        cite_page_name = HTML.xpath(<span class="string">&#x27;//h3/a&#x27;</span>)</span><br><span class="line">        cite_page_src = HTML.xpath(<span class="string">&#x27;//h3/a/@href&#x27;</span>)</span><br><span class="line">        cite_aut_name = HTML.xpath(</span><br><span class="line">            <span class="string">&#x27;//*[@id=&quot;gs_res_ccl_mid&quot;]/div/div/div[1]&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+<p>数据解析的关键技术： 1. 使用XPath提取结构化数据 2.
+智能分割作者和出版信息 3. 实时保存避免数据丢失</p>
+<p>每条引用信息的处理都经过精心设计： <div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 解析作者和出版信息</span></span><br><span class="line">split_index = aut_name.find(<span class="string">&#x27; - &#x27;</span>)</span><br><span class="line"><span class="keyword">if</span> split_index != -<span class="number">1</span>:</span><br><span class="line">    authors = aut_name[:split_index].strip()</span><br><span class="line">    publication_info = aut_name[split_index + <span class="number">3</span>:].strip()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 格式化输出</span></span><br><span class="line"><span class="variable language_">self</span>.file.write(<span class="string">f&quot;\tCited_By_Passage: <span class="subst">&#123;page_name.text&#125;</span>\n&quot;</span></span><br><span class="line">                <span class="string">f&quot;\tCited_By_Author: <span class="subst">&#123;authors&#125;</span>\n&quot;</span></span><br><span class="line">                <span class="string">f&quot;\tCited_By_Journal: <span class="subst">&#123;publication_info&#125;</span>\n&quot;</span>)</span><br></pre></td></tr></table></figure></div></p>
+<p>这种结构化的存储格式有以下优势： - 便于后续数据分析 -
+可以轻松转换为其他格式 - 保持了数据的层级关系</p>
+<h2 id="踩过的坑">踩过的坑</h2>
+<p>在开发过程中遇到了一些典型的问题，这里详细分享一下解决思路，希望能帮助到同样遇到这些问题的朋友。</p>
+<h3 id="页面元素定位问题">1. 页面元素定位问题</h3>
+<p>这是使用Selenium最常遇到的问题。最初的代码是这样的：
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">time.sleep(<span class="number">3</span>)  <span class="comment"># 固定等待3秒</span></span><br><span class="line">element = driver.find_element(By.XPATH, <span class="string">&#x27;...&#x27;</span>)</span><br></pre></td></tr></table></figure></div></p>
+<p>这种方式在实际运行中经常出现<code>NoSuchElementException</code>错误，原因是：
+- 网络速度不同，页面加载时间不固定 - 3秒可能太短，元素还没加载出来 -
+有时候3秒又太长，浪费等待时间</p>
+<p>改进后的代码： <div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 最多等待15秒，每0.5秒检查一次</span></span><br><span class="line">WebDriverWait(<span class="variable language_">self</span>.driver, <span class="number">15</span>, <span class="number">0.5</span>).until(</span><br><span class="line">    EC.visibility_of_element_located((By.XPATH, <span class="string">&#x27;...&#x27;</span>))</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div></p>
+<p>这样的好处是： - 元素出现就立即操作，不用等待固定时间 -
+超时会抛出明确的异常，便于处理 - 程序运行更加稳定和高效</p>
+<h3 id="验证码处理难题">2. 验证码处理难题</h3>
+<p>Google Scholar的验证码机制是一大难点。它提供了两种验证方式：</p>
+<ol type="1">
+<li>传统的图片验证码：需要识别图片中的文字或选择特定图片</li>
+<li>音频验证码：播放一段语音，输入听到的内容</li>
+</ol>
+<p>最初我们考虑过图片验证码的方案，但存在以下问题： -
+Google会动态调整验证码的难度 - 需要处理复杂的图片选择任务</p>
+<p>最终选择音频验证方案的原因： - 语音内容相对清晰，便于识别 -
+可以利用成熟的语音识别API - 实现逻辑相对简单：下载音频 -&gt; 识别文字
+-&gt; 填写结果</p>
+<h3 id="数据存储和处理">3. 数据存储和处理</h3>
+<p>数据存储看似简单，但要考虑实用性。最初的存储方式是直接写入文本：
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file.write(<span class="string">f&quot;<span class="subst">&#123;title&#125;</span> - <span class="subst">&#123;author&#125;</span>\n&quot;</span>)</span><br></pre></td></tr></table></figure></div></p>
+<p>这种方式带来的问题： - 数据格式不统一，难以解析 -
+无法方便地提取特定信息 - 不利于后续的数据分析</p>
+<p>改进后采用了结构化的存储格式： <div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">self</span>.file.write(<span class="string">f&quot;\tCited_By_Passage: <span class="subst">&#123;page_name.text&#125;</span>\n&quot;</span></span><br><span class="line">                <span class="string">f&quot;\tCited_By_Author: <span class="subst">&#123;authors&#125;</span>\n&quot;</span></span><br><span class="line">                <span class="string">f&quot;\tCited_By_Journal: <span class="subst">&#123;publication_info&#125;</span>\n&quot;</span>)</span><br></pre></td></tr></table></figure></div></p>
+<p>这样改进的好处： - 数据结构清晰，易于理解 -
+可以轻松转换为JSON或CSV格式 - 方便后续进行数据分析和可视化</p>
+<h2 id="未来优化方向">未来优化方向</h2>
+<ol type="1">
+<li><strong>并发优化</strong>
+<ul>
+<li>实现多线程数据采集</li>
+<li>添加代理IP池支持</li>
+<li>优化请求频率控制</li>
+</ul></li>
+<li><strong>数据分析功能</strong>
+<ul>
+<li>添加引用网络分析</li>
+<li>实现作者关系图谱</li>
+<li>支持数据可视化导出</li>
+</ul></li>
+</ol>
+<h2 id="完整代码">完整代码</h2>
+<p>完整的项目代码已经上传到GitHub：<a class="link" 
+ target="_blank" rel="noopener" href="https://github.com/Iamb1yat/Google-Scholar" >GitHub -
+Google-Scholar</a></p>
+<p>如果这个项目对您有帮助，欢迎给仓库点个star⭐️。如有任何问题或建议，也欢迎在评论区留言交流。</p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> 从0到1：构建智能化Google Scholar文献爬虫的心路历程</li>
+        <li><strong>作者:</strong> b1yat</li>
+        <li><strong>创建于
+                :</strong> 2024-07-20 16:00:00</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2025-02-24 21:33:10
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://iamb1yat.github.io/2024/07/20/Google_Scholar_Crawler/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98/">#爬虫实战</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E7%A7%91%E7%A0%94%E5%B7%A5%E5%85%B7/">#科研工具</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2024/09/20/MNIST/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">深度学习入门：用CNN玩转MNIST手写数字识别</span>
+						<span class="post-nav-item">上一篇</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2024/01/24/3D_Album/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">3D Album 🎞️</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-swup-reload-script
+            src="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
+    <script data-swup-reload-script>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: 'Ov23liq2fiQzooWJAry8',
+                    clientSecret: '2d86e55d52819ff01c5cb7033ed5d70f60320a4d',
+                    repo: 'gitalk',
+                    owner: 'Iamb1yat',
+                    admin: ['Iamb1yat'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN',
+                    proxy: 'https://strong-caramel-969805.netlify.app/github_access_token'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">从0到1：构建智能化Google Scholar文献爬虫的心路历程</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%98%E8%B5%B7"><span class="nav-text">缘起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0"><span class="nav-text">核心技术实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1"><span class="nav-text">1. 系统架构设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E7%A0%81%E7%AA%81%E7%A0%B4%E6%96%B9%E6%A1%88"><span class="nav-text">2. 验证码突破方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9F%B3%E9%A2%91%E8%AF%86%E5%88%AB%E5%AE%9E%E7%8E%B0"><span class="nav-text">3. 音频识别实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%AE%9E%E7%8E%B0"><span class="nav-text">4. 数据采集实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B8%A9%E8%BF%87%E7%9A%84%E5%9D%91"><span class="nav-text">踩过的坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B5%E9%9D%A2%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E9%97%AE%E9%A2%98"><span class="nav-text">1. 页面元素定位问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E7%A0%81%E5%A4%84%E7%90%86%E9%9A%BE%E9%A2%98"><span class="nav-text">2. 验证码处理难题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E5%92%8C%E5%A4%84%E7%90%86"><span class="nav-text">3. 数据存储和处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AA%E6%9D%A5%E4%BC%98%E5%8C%96%E6%96%B9%E5%90%91"><span class="nav-text">未来优化方向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="nav-text">完整代码</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2024</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">b1yat</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 4 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="站内搜索您需要的内容..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/Swup.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupSlideTheme.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupScriptsPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupProgressPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupScrollPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupPreloadPlugin.min.js" ></script>
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/imageViewer.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/utils.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/main.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/navbarShrink.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/scrollTopBottom.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/lightDarkSwitch.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/categoryList.js" ></script>
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/localSearch.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/codeBlock.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/lazyload.js" ></script>
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/runtime.js" ></script>
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/odometer.min.js" ></script>
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/Typed.min.js" ></script>
+  <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/plugins/typed.js" ></script>
+
+
+
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.3.0/dist/mermaid.min.js"></script>
+    
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/plugins/mermaid.js" ></script>
+
+
+
+
+
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/tocToggle.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/toc.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/plugins/tabs.js" data-swup-reload-script></script>
+
+
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/moment-with-locales.min.js" data-swup-reload-script></script>
+<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/essays.js" data-swup-reload-script></script>
+
+
+
+
+	
+</body>
+
+</html>
