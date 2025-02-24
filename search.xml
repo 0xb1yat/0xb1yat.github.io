@@ -36,7 +36,7 @@ Album页面</a></p>
 <img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/3D_album/preview.png"
+                     data-src="/images/3D_album/preview.gif"
                       alt="3D相册预览" 
                 >
 <figcaption aria-hidden="true">3D相册预览</figcaption>
