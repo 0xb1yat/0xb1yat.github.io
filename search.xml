@@ -525,7 +525,7 @@ Estimation）是一种自适应学习率的优化算法，它结合了动量（M
       </categories>
       <tags>
         <tag>深度学习</tag>
-        <tag>CNN</tag>
+        <tag>卷积神经网络</tag>
       </tags>
   </entry>
   <entry>
@@ -789,11 +789,11 @@ pp. 550-558.</p>
 <p>如果你对ResNet或其他深度学习架构有任何想法或疑问，欢迎在评论区留言讨论。</p>
 ]]></content>
       <categories>
-        <category>论文笔记</category>
+        <category>学习笔记</category>
       </categories>
       <tags>
         <tag>深度学习</tag>
-        <tag>CNN</tag>
+        <tag>论文笔记</tag>
         <tag>残差网络</tag>
       </tags>
   </entry>
