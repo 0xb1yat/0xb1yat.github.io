@@ -30,8 +30,7 @@
 </ul>
 <h3 id="在线预览">🌟 在线预览</h3>
 <p>你可以通过以下链接体验这个3D相册：</p>
-<p><a href="https://iamb1yat.github.io/3D_Album">打开3D
-Album页面</a></p>
+<p><a href="https://0xb1yat.github.io/3D_Album">打开3D Album页面</a></p>
 <figure>
 <img  
                      lazyload
@@ -43,7 +42,7 @@ Album页面</a></p>
 </figure>
 <h3 id="源代码">📦 源代码</h3>
 <p>如果你也想创建这样的3D相册，可以访问<a class="link" 
- href="https://github.com/Iamb1yat/3D_Album" >GitHub仓库</a>获取源代码。项目提供了详细的使用说明和配置文档，欢迎点个
+ href="https://github.com/0xb1yat/3D_Album" >GitHub仓库</a>获取源代码。项目提供了详细的使用说明和配置文档，欢迎点个
 ⭐Star 支持一下哦！</p>
 <blockquote>
 <p>🎨 让我们一起创造更多精彩的视觉效果吧！</p>
@@ -170,7 +169,7 @@ Google会动态调整验证码的难度 - 需要处理复杂的图片选择任�
 </ol>
 <h2 id="完整代码">完整代码</h2>
 <p>完整的项目代码已经上传到GitHub：<a class="link" 
- href="https://github.com/Iamb1yat/Google-Scholar" >GitHub -
+ href="https://github.com/0xb1yat/Google-Scholar" >GitHub -
 Google-Scholar</a></p>
 <p>如果这个项目对您有帮助，欢迎给仓库点个star⭐️。如有任何问题或建议，也欢迎在评论区留言交流。</p>
 ]]></content>
@@ -206,14 +205,14 @@ Google-Scholar</a></p>
 别担心，还会有惊喜哦 😉</p>
 <h3 id="快来体验">🌟 快来体验</h3>
 <p>点击下面的链接，开启一段甜蜜的告白之旅吧：</p>
-<p><a href="https://iamb1yat.github.io/Love_Choice">打开Love
+<p><a href="https://0xb1yat.github.io/Love_Choice">打开Love
 Choice页面</a></p>
 <figure>
 <img 
 
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/Iamb1yat/Love_Choice/main/images/heart.png"
+                     data-src="https://raw.githubusercontent.com/0xb1yat/Love_Choice/main/images/heart.png"
                      
 alt="告白页面预览" 
                 >
@@ -224,7 +223,7 @@ alt="告白页面预览"
 </blockquote>
 <h3 id="源代码">📦 源代码</h3>
 <p>如果你也想部署这个可爱的告白页面，可以访问<a class="link" 
- href="https://github.com/Iamb1yat/Love_Choice" >GitHub仓库</a>获取源代码。如果这个项目对你有帮助，欢迎点个
+ href="https://github.com/0xb1yat/Love_Choice" >GitHub仓库</a>获取源代码。如果这个项目对你有帮助，欢迎点个
 ⭐Star 支持一下哦～ 你的每个 Star 都是我创作的动力！</p>
 <blockquote>
 <p>💝 让我们一起传播爱的浪漫吧～</p>
@@ -510,7 +509,7 @@ Estimation）是一种自适应学习率的优化算法，它结合了动量（M
 </ol>
 <p>这些见解不仅帮助我们理解了当前项目，也为我们探索其他深度学习应用提供了重要启示。通过可视化和实验分析，我们看到了深度学习是如何从原始像素数据中提取有意义的特征表示，并最终完成分类任务的。这种理解对于进一步改进模型设计和解决其他计算机视觉问题都具有重要的指导意义。</p>
 <h2 id="完整代码">完整代码</h2>
-<p>完整的项目代码已经上传到GitHub：<a class="link" href="https://github.com/Iamb1yat/mnist-pytorch">mnist-pytorch</a></p>
+<p>完整的项目代码已经上传到GitHub：<a class="link" href="https://github.com/0xb1yat/mnist-pytorch">mnist-pytorch</a></p>
 <p>项目包含：</p>
 <ul>
 <li>完整的模型实现</li>
